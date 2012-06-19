@@ -1,9 +1,10 @@
 {{{ header }}}
+
 {{#posts}}
 <section>
   <article id="post-{{id}}">
   <header>
-    <h1><a href="{{permalink}}">{{ title }}</a></h1>
+    <h1><a href="{{ permalink }}">{{ title }}</a></h1>
     <p>Posted on {{ date }} by {{{ author }}}</p>
     {{{ content }}}
     {{{ link_pages }}}
@@ -12,4 +13,5 @@
 {{/posts}}
 
 {{{ sidebar }}}
+
 {{{ footer }}}
