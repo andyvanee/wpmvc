@@ -6,9 +6,14 @@ class ContentController extends BaseController {
     $this->setE('header', 'get_header');
     $this->setE('sidebar', 'get_sidebar');
     $this->setE('footer', 'get_footer');
-    
+    $this->postLoop();
+  }
+
+  /*
+   * Loop through the available posts and assign content
+   */
+  function postLoop(){
     $posts = array();
-    
     if (have_posts()) {
       while (have_posts()) {
         the_post();
@@ -27,5 +32,9 @@ class ContentController extends BaseController {
     }
     $this->set('posts', $posts);
   }
+
+  /*
+   * A hook for subclasses to assign to each post in the loop
+   */
   function perPost(&$post){ }
 }

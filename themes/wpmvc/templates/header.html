@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html {{{language_attributes}}}>
+  <head>
+    <meta http-equiv="Content-Type" content="{{bloginfo_html_type}}; charset={{bloginfo_charset}}">
+    <title>{{bloginfo_name}} - {{wp_title}}</title>
+    <meta name="description" content="{{bloginfo_description}}">
+    <link rel="stylesheet" type="text/css" href="{{stylesheet_url}}" media="screen">
+    <link rel="alternate" type="text/xml" title="{{bloginfo_name}} RSS 0.92 Feed" href="{{bloginfo_rss_url}}">
+    <link rel="alternate" type="application/atom+xml" title="{{bloginfo_name}} Atom Feed" href="{{bloginfo_atom_url}}">
+    <link rel="alternate" type="application/rss+xml" title="{{bloginfo_name}} RSS 2.0 Feed" href="{{bloginfo_rss2_url}}">
+    {{{wp_enqueue_jquery}}}
+    {{{wp_head}}}
+    <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
+  </head>
+  <body {{{body_class}}}>
+  <div class="wrapper">
+    <div class="site-info">
+      <header>
+        <h1><a href="{{bloginfo_url}}">{{bloginfo_name}}</a></h1>
+        <h2>{{bloginfo_description}}</h2>
+      </header>
+      <nav>
+        <ul>
+          {{{wp_list_pages}}}
+        </ul>
+      </nav>
+    </div>
