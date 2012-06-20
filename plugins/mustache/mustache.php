@@ -32,7 +32,7 @@ require_once('lib/Mustache.php');
 class N_View {
   function render() {
     $template_path = TEMPLATEPATH.'/templates';
-    $template = file_get_contents($template_path.'/'.$this->template);
+    $template = file_get_contents($template_path.'/'.$this->template.'.mustache');
     $m = new Mustache;
     echo $m->render($template, $this->assigns);
   }
