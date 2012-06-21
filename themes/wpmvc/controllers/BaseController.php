@@ -1,7 +1,7 @@
 <?php
-require_once ABSPATH . 'wp-content/plugins/mustache/mustache.php';
+require_once ABSPATH.'/wp-content/themes/wpmvc/lib/WPView.php';
 
-class BaseController extends N_View {
+class BaseController extends WPView {
   var $template;
   var $assigns;
 
