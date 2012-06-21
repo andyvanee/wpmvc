@@ -13,7 +13,7 @@ class Dispatcher {
     }
     $controllerClass = "{$controller}Controller";
 
-    require_once dirname(__DIR__)."/controllers/{$controllerClass}.php";
+    require_once TEMPLATEPATH."/controllers/{$controllerClass}.php";
     $controller = new $controllerClass;
     $controller->render();
   }
