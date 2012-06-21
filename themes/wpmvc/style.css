@@ -16,10 +16,49 @@ Tags: minimal, template, html5, mustache, mvc
 	http://www.opensource.org/licenses/gpl-3.0.html
 */
 
-body { margin: 0; font: 15px sans-serif; line-height: 1.5em; }
-div.wrapper { width: 54em; margin: 0 auto; }
-div.site-info { width: 100%; }
-section.posts { width: 32em; float: left; }
-aside { width: 21em; float: right; }
+body {
+  margin: 0;
+  font: 15px sans-serif;
+  line-height: 1.5em;
+}
+
+div.wrapper {
+  width: 54em;
+  margin: 0 auto;
+}
+
+div.site-info {
+  width: 100%; 
+  padding: 1em 2em; margin-left: -2em;
+  background-color: #f2f2f2; 
+}
+
+section.posts { 
+  width: 36em; 
+  float: left; 
+  text-align: justify;
+}
+
+aside {
+  width: 15em;
+  float: right;
+  margin-top: 1em;
+}
 
 a { color: #44A; text-decoration: none; }
+
+nav.top-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+nav.top-nav li { display: inline; }
+
+nav.top-nav a {
+    padding: 4px 8px;
+    margin-right: 1em;
+    background-color: #FFF;
+    border-bottom: 1px solid #FFF;
+}
+
+nav.top-nav a:hover { border-bottom-color: #44A; }
