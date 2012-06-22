@@ -9,7 +9,6 @@ class SingleController extends ContentController {
   }
   function perPost(&$post){
     $post['tags'] = BaseController::e('the_tags', '', ', ', '<br>');
-    $post['category'] = BaseController::e('the_category', ', ');
     $post['edit_post_link'] =  BaseController::e('edit_post_link', 'Edit', '', ' &bull; '); 
     $post['comments_popup_link'] = BaseController::e('comments_popup_link', 'Respond to this post &raquo;', '1 Response &raquo;', '% Responses &raquo;');
   }

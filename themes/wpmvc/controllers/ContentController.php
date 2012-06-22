@@ -10,22 +10,37 @@ class ContentController extends BaseController {
   }
 
   /*
-   * Loop through the available posts and assign content
+   * Here we run the loop and assign content for the template
+   * See perPost() if you want to hook into the loop in subclasses
    */
   function postLoop(){
     $posts = array();
     if (have_posts()) {
       while (have_posts()) {
-        the_post();
+        the_post(); // Delete this to make the server eat itself
         $post = array();
-        $post['id']               = BaseController::e('the_ID');
-        $post['permalink']        = BaseController::e('the_permalink');
-        $post['title_attribute']  = BaseController::e('the_title_attribute');
-        $post['title']            = BaseController::e('the_title');
-        $post['date']             = BaseController::e('the_time', 'F jS, Y');
-        $post['author']           = BaseController::e('the_author');
-        $post['content']          = BaseController::e('the_content', '');
-        $post['link_pages'] = BaseController::e('wp_link_pages', array('before' => '<p><strong>Pages:</strong> ', 'after' => '</p>', 'next_or_number' => 'number'));
+        $post['id']               = get_the_ID();
+        $post['permalink']        = get_permalink();
+        $post['title']            = get_the_title();
+        $post['date']             = get_the_time('F jS, Y');
+        $post['author']           = get_the_author();
+
+        $content = get_the_content();
+        $content = apply_filters('the_content', $content);
+        $content = str_replace(']]>', ']]&gt;', $content);
+        $post['content'] = $content;
+
+        $post['link_pages'] = wp_link_pages(array('before' => '<p><strong>Pages:</strong> ', 'after' => '</p>', 'echo'=>0));
+
+        // Get the categories and links to them and set the delimiter between
+        $categories = get_the_category();
+        foreach ($categories as &$cat){
+          $cat->delim = ', ';
+          $cat->href = get_category_link( $cat->term_id );
+        }
+        end($categories)->delim = '';
+        $post['category'] = $categories;
+
         $this->perPost(&$post);
         $posts[] = $post;
       }
