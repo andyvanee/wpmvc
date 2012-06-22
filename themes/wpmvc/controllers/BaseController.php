@@ -1,4 +1,5 @@
 <?php
+
 require_once ABSPATH.'/wp-content/themes/wpmvc/lib/WPView.php';
 
 class BaseController extends WPView {
@@ -10,11 +11,15 @@ class BaseController extends WPView {
    * the most generic stuff here.
    */
   function __construct(){
-    $this->setE('bloginfo_name', 'bloginfo', 'name');
-    $this->setE('bloginfo_charset', 'bloginfo', 'charset');
-    $this->setE('wp_title');
-    $this->setE('template_directory', 'bloginfo', 'template_directory');
-    $this->setE('bloginfo_url', 'bloginfo', 'url');
+    $bloginfo_fields = array(
+        'name',
+        'charset',
+        'template_directory',
+        'url' );
+    foreach ( $bloginfo_fields as $f ){
+      $this->set("bloginfo_{$f}", get_bloginfo($f, 'display'));
+    }
+    $this->set('wp_title', wp_title($sep = '', $display = false, $seplocation = ''));
   }
   
   /*

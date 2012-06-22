@@ -1,12 +1,19 @@
 <?php
 require_once 'BaseController.php';
+require_once 'HeaderController.php';
+require_once 'FooterController.php';
+require_once 'SidebarController.php';
 
 class ContentController extends BaseController {
   function __construct() {
-    $this->setE('header', 'get_header');
-    $this->setE('sidebar', 'get_sidebar');
-    $this->setE('footer', 'get_footer');
+    $header  = new HeaderController;
+    $sidebar = new SidebarController;
+    $footer  = new FooterController;
+    $this->set('header', $header->render(false));
+    $this->set('sidebar', $sidebar->render(false));
+    $this->set('footer', $footer->render(false));
     $this->postLoop();
+    parent::__construct();
   }
 
   /*
@@ -25,19 +32,20 @@ class ContentController extends BaseController {
         $post['date']             = get_the_time('F jS, Y');
         $post['author']           = get_the_author();
 
-        $content = get_the_content();
-        $content = apply_filters('the_content', $content);
-        $content = str_replace(']]>', ']]&gt;', $content);
-        $post['content'] = $content;
+        $post['content'] = str_replace(']]>',
+                                       ']]&gt;',
+                                       apply_filters('the_content', get_the_content())
+                                      );
 
         $post['link_pages'] = wp_link_pages(array('before' => '<p><strong>Pages:</strong> ', 'after' => '</p>', 'echo'=>0));
 
         // Get the categories and links to them and set the delimiter between
-        $categories = get_the_category();
-        foreach ($categories as &$cat){
+        $categories = array_map(function(&$cat){
           $cat->delim = ', ';
           $cat->href = get_category_link( $cat->term_id );
-        }
+        }, get_the_category());
+
+        // Unset the final delimiter
         end($categories)->delim = '';
         $post['category'] = $categories;
 
