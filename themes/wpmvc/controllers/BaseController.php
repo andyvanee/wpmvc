@@ -11,11 +11,8 @@ class BaseController extends WPView {
    * the most generic stuff here.
    */
   function __construct(){
-    $bloginfo_fields = array(
-        'name',
-        'charset',
-        'template_directory',
-        'url' );
+    $this->set('template_directory', get_bloginfo('template_directory', 'display'));
+    $bloginfo_fields = array('name', 'url');
     foreach ( $bloginfo_fields as $f ){
       $this->set("bloginfo_{$f}", get_bloginfo($f, 'display'));
     }
@@ -42,6 +39,16 @@ class BaseController extends WPView {
    */
   function set($name, $value){
     $this->assigns[$name] = $value;
+  }
+  
+  /*
+   * Duplicate but non-echoing version of the_content
+   */
+  function the_content($more_link_text = null, $stripteaser = false){
+    $content = get_the_content($more_link_text, $stripteaser);
+    $content = apply_filters('the_content', $content);
+    $content = str_replace(']]>', ']]&gt;', $content);
+    return $content;
   }
   
   /*

@@ -32,10 +32,7 @@ class ContentController extends BaseController {
         $post['date']             = get_the_time('F jS, Y');
         $post['author']           = get_the_author();
 
-        $post['content'] = str_replace(']]>',
-                                       ']]&gt;',
-                                       apply_filters('the_content', get_the_content())
-                                      );
+        $post['content'] = $this->the_content();
 
         $post['link_pages'] = wp_link_pages(array('before' => '<p><strong>Pages:</strong> ', 'after' => '</p>', 'echo'=>0));
 
